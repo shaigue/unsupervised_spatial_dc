@@ -1,0 +1,23 @@
+TODO:
+1. the input audio needs to be of a floating point format
+2. needs to be reduced to only one channel pre-mixing
+3. to down sample the samples, 44.1kHz is too much
+4. In the current data set, if the we loose the modulu of the batch if it does not devide exactly(0 batches problem)
+
+
+
+Flow:
+1. samples need to be preprocessed - 
+    float
+    mono-channel
+    low sample rate
+    cut into small samples
+2. need to be formated as the data, and with meta data
+3. mic samples need to be created with the correct phase delays
+
+For Improvement:
+1. use beamforming for estimating the signal, not only masking
+2. use more sufisticated clustering (spectralNet) for clustering rather then K-means
+3. use a more efficeint method to mix the signals
+4. Add your own 'label inferance' based on the wanted algorithem / signal properties
+5.

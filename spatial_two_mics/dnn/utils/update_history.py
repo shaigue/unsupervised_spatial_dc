@@ -30,6 +30,8 @@ def values_update(list_of_pairs,
             history_dic[k+'_batch_counter'] += 1
     elif update_mode == 'epoch':
         for k, v in list_of_pairs:
+            ## if k not in history_dic:    ## added by shai
+            ##    history_dic[k] = []
             history_dic[k].append(history_dic[k + "_batch_total"] /
                                   history_dic[k + '_batch_counter'])
             history_dic[k + "_batch_total"] = 0.
