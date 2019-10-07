@@ -8,7 +8,8 @@ import os
 import sys
 import glob2
 import numpy as np
-from sklearn.externals import joblib
+import joblib
+# from sklearn.externals import joblib
 import scipy.io.wavfile as wavfile
 from torch.utils.data import Dataset, DataLoader
 from pprint import pprint

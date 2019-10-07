@@ -1,8 +1,20 @@
 TODO:
-1. the input audio needs to be of a floating point format
-2. needs to be reduced to only one channel pre-mixing
-3. to down sample the samples, 44.1kHz is too much
+DONE - 1. the input audio needs to be of a floating point format 
+DONE - 2. needs to be reduced to only one channel pre-mixing
+DONE - 3. to down sample the samples, 44.1kHz is too much
 4. In the current data set, if the we loose the modulu of the batch if it does not devide exactly(0 batches problem)
+5. change the fallowing files to fit the custom dataset:
+    - 'data_generator/dataset_generator.py'
+    - 'data_generator/dataset_storage.py' 
+    This will allow me to use MY_DREGON dataset in the model
+
+PROBLEM:
+1. the modules are not modular enought and make a lot of use of the spacific structure of the dataset
+    my implementetion also does that because lack of time, but preferably if someone else does it it is better
+    to write a more general implementation
+
+Running DREGON experiment:
+1. create a dataloader implementation
 
 
 

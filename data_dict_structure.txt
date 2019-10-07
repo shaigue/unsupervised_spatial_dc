@@ -1,0 +1,25 @@
+Loading MY_DREGON Dataset from C:\Users\shaig\Documents\CS_Technion\2019_b\Deep Learning Project\DATA\MY_DREGON...
+Searching inside: C:\Users\shaig\Documents\CS_Technion\2019_b\Deep Learning Project\DATA\MY_DREGON\train...
+Searching inside: C:\Users\shaig\Documents\CS_Technion\2019_b\Deep Learning Project\DATA\MY_DREGON\test...
+train
+-->primery type: clean_sound
+---->secondary_type: chirps
+------>number of samples: 116
+---->secondary_type: speech
+------>number of samples: 83
+---->secondary_type: whitenoise
+------>number of samples: 20
+-->primery type: rotor_sound
+---->secondary_type: individual_motors_recordings
+------>number of samples: 311
+test
+-->primery type: clean_sound
+---->secondary_type: chirps
+------>number of samples: 28
+---->secondary_type: speech
+------>number of samples: 20
+---->secondary_type: whitenoise
+------>number of samples: 4
+-->primery type: rotor_sound
+---->secondary_type: individual_motors_recordings
+------>number of samples: 77
