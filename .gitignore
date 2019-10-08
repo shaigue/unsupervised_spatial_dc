@@ -268,3 +268,6 @@ fabric.properties
 .history
 
 # End of https://www.gitignore.io/api/pycharm,visualstudiocode
+
+# every computer should have its own
+spatial_two_mics/config.py

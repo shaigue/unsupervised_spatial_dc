@@ -54,7 +54,7 @@ def check_valid_types(types):
 class RandomCombinations(ArtificialDatasetCreator):
     def __init__(self,
                  audio_dataset_name="my_dregon",
-                 types=None, # this is a dictionary of lists of allowed types primery / secondary
+                 types=None, # this is a dictionary of lists of allowed secondary_types
                  create_val_set=False,
                  test=False,
                  min_duration=1):
