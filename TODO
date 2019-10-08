@@ -33,3 +33,9 @@ For Improvement:
 3. use a more efficeint method to mix the signals
 4. Add your own 'label inferance' based on the wanted algorithem / signal properties
 5.
+
+
+------------------------------------------------------------------------------------------------------
+
+1. my_dregon dataLoader - check if we need to add type to the sample info.
+2.
