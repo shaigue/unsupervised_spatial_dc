@@ -9,8 +9,10 @@ python dictionary structure the whole timit dataset.
 import os
 import sys
 import scipy.io.wavfile as wavfile
+import soundfile as sf
 import glob2
 import numpy as np
+from sphfile import SPHFile
 
 root_dir = os.path.join(
            os.path.dirname(os.path.realpath(__file__)),
@@ -25,6 +27,31 @@ class TimitLoader(object):
                  normalize_audio_by_std=True):
         self.dataset_path = TIMIT_PATH
         self.normalize_audio_by_std = normalize_audio_by_std
+
+    def wav_converter(self):
+        dialects_path = self.dataset_path
+        dialects = os.listdir(dialects_path)
+        for dialect in dialects:
+            dialect_path = os.path.join(dialects_path, dialect)
+            speakers = os.listdir(path=dialect_path)
+            for speaker in speakers:
+                speaker_path = os.path.join(dialect_path, speaker)
+                speaker_recordings = os.listdir(path=speaker_path)
+
+                wav_files = glob2.glob(speaker_path + '/*.WAV')
+
+                for wav_file in wav_files:
+                    sph = SPHFile(wav_file)
+                    txt_file = ""
+                    txt_file = wav_file[:-3] + "TXT"
+
+                    f = open(txt_file, 'r')
+                    for line in f:
+                        words = line.split(" ")
+                        start_time = (int(words[0]) / 16000)
+                        end_time = (int(words[1]) / 16000)
+                    print("writing file ", wav_file)
+                    sph.write_wav(wav_file.replace(".WAV", ".wav"), start_time, end_time)
 
     def get_all_wavs(self, path):
         data_dic = {}
@@ -42,12 +69,17 @@ class TimitLoader(object):
                 wavs_paths = glob2.glob(os.path.join(speaker_path,
                                                      '*.wav'))
 
-                speaker_wavs = [list(wavfile.read(wav_p)) + [wav_p]
+                # speaker_wavs = []
+                # for wav_p in wavs_paths:
+                #     with sf.SoundFile(wav_p, mode='r') as f:
+                #         speaker_wavs = speaker_wavs + [sf.read(wav_p)] + [wav_p]
+
+                speaker_wavs = [list(sf.read(wav_p)) + [wav_p]
                                 for wav_p in wavs_paths]
 
                 if self.normalize_audio_by_std:
                     speaker_wavs = [(sr, wav / np.std(wav), wav_p)
-                                    for (sr, wav, wav_p) in speaker_wavs]
+                                    for (wav, sr, wav_p) in speaker_wavs]
 
                 speaker_wavs = [(wav_p.split('/')[-1].split('.wav')[0],
                                 {'wav': wav, 'sr': sr, 'path': wav_p})
