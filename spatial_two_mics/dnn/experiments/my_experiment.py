@@ -1,10 +1,13 @@
 """!
 @brief Using the fast version of the dataset generator provide a
 naive experimental setup for performing the experiment using also the
-new command line argument parser.
+new command line argument parser
 
-@author Efthymios Tzinis {etzinis2@illinois.edu}
-@copyright University of illinois at Urbana Champaign
+@edit - 
+
+My edits is to:
+- works with the dregon dataset
+- works with or without cuda 
 """
 
 
@@ -26,7 +29,7 @@ sys.path.insert(0, root_dir)
 import spatial_two_mics.dnn.models.simple_LSTM_encoder as LSTM_enc
 import spatial_two_mics.dnn.losses.affinity_approximation as \
     affinity_losses
-import spatial_two_mics.dnn.utils.fast_dataset_v3 as fast_data_gen
+import spatial_two_mics.dnn.utils.my_fast_dataset as fast_data_gen
 import spatial_two_mics.dnn.utils.data_conversions as converters
 import spatial_two_mics.dnn.utils.experiment_command_line_parser_v2 as \
     parser
@@ -53,7 +56,10 @@ def train(model,
                       max=n_batches)
     for batch_data in training_generator:
         (abs_tfs, masks) = batch_data
-        input_tfs, index_ys = abs_tfs.cuda(), masks.cuda()
+        if torch.cuda.is_available():
+            input_tfs, index_ys = abs_tfs.cuda(), masks.cuda()
+        else:
+            input_tfs, index_ys = abs_tfs, masks
         # the input sequence is determined by time and not freqs
         # before: input_tfs = batch_size x (n_fft/2+1) x n_timesteps
         input_tfs = input_tfs.permute(0, 2, 1).contiguous()
@@ -69,9 +75,14 @@ def train(model,
             # index_ys = index_ys.permute(0, 2, 1).contiguous()
             one_hot_ys = converters.one_hot_3Dmasks(index_ys,
                                                     n_sources)
-            flatened_ys = one_hot_ys.view(one_hot_ys.size(0),
-                                          -1,
-                                          one_hot_ys.size(-1)).cuda()
+            if torch.cuda.is_available(): 
+                flatened_ys = one_hot_ys.view(one_hot_ys.size(0),
+                                            -1,
+                                            one_hot_ys.size(-1)).cuda()
+            else:
+                flatened_ys = one_hot_ys.view(one_hot_ys.size(0),
+                                            -1,
+                                            one_hot_ys.size(-1))
 
         optimizer.zero_grad()
         vs = model(input_tfs)
@@ -106,7 +117,10 @@ def eval(model,
                           max=n_batches*batch_size)
         for batch_data in val_generator:
             abs_tfs, wavs_lists, real_tfs, imag_tfs = batch_data
-            input_tfs = abs_tfs.cuda()
+            if torch.cuda.is_available():
+                input_tfs = abs_tfs.cuda()
+            else:
+                input_tfs = abs_tfs
             # the input sequence is determined by time and not freqs
             # before: input_tfs = batch_size x (n_fft/2+1) x n_timesteps
             input_tfs = input_tfs.permute(0, 2, 1).contiguous()
@@ -172,7 +186,10 @@ def run_LSTM_experiment(args):
                                   embedding_depth=args.embedding_depth,
                                   bidirectional=args.bidirectional,
                                   dropout=args.dropout)
-    model = nn.DataParallel(model).cuda()
+    if torch.cuda.is_available():
+        model = nn.DataParallel(model).cuda()
+    else:
+        model = nn.DataParallel(model)
 
     optimizer = torch.optim.Adam(model.parameters(),
                                  lr=args.learning_rate,

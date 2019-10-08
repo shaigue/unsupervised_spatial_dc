@@ -5,14 +5,16 @@ loading only the appropriate files that might be needed. Moreover
 this dataset has minimal input argument requirements in order to be
 more user friendly.
 
-@author Efthymios Tzinis {etzinis2@illinois.edu}
-@copyright University of illinois at Urbana Champaign
+@edits:
+My edits is to make it possible for it to work on the dregon dataset
+
 """
 
 import os
 import glob2
 import numpy as np
-from sklearn.externals import joblib
+import joblib
+# from sklearn.externals import joblib
 from torch.utils.data import Dataset, DataLoader
 
 
