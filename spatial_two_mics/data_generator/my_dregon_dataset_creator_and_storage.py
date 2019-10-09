@@ -105,8 +105,11 @@ def calc_max_mixtures(partition_dict: dict, types_to_mix: list):
     n = 1
     for sound_type in types_to_mix:
         k = len(partition_dict[sound_type])
+        ## debug
+        ## print(f"{k} len of {sound_type}")
+        ##
         n *= k
-    return k
+    return n
 
 
 def check_n_mixture(partition_dict: dict,
@@ -291,7 +294,7 @@ def print_progress(message: str, n_stars: int = 0) -> None:
 def create_dataset(n_train: int, n_test: int, n_val:int, 
     types_to_mix: list,   # a list of n [n >= 2] types of sounds, string to have in the mixtures
                         # the number of sources to mix will be infered from the length of this list
-    output_dir):
+    output_dir: str) -> str:
     """Creates the dataset.
 
     This function creates mixtures of 2 simulated microphones and spatial fetures
