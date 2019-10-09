@@ -273,3 +273,4 @@ fabric.properties
 spatial_two_mics/config.py
 output/*
 output/
+*__pycache__*
