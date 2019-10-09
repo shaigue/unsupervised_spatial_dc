@@ -271,3 +271,5 @@ fabric.properties
 
 # every computer should have its own
 spatial_two_mics/config.py
+output/*
+output/

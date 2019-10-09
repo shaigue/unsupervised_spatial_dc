@@ -76,8 +76,10 @@ class PytorchMixtureDataset(Dataset):
         self.n_samples = len(self.mixture_folders)
         self.only_mask_evaluation = only_mask_evaluation
 
-        self.n_sources = int(os.path.basename(
-                             dataset_dir).split("_")[4])
+        # TODO: change to work with multiple sources
+        # self.n_sources = int(os.path.basename(
+        #                      dataset_dir).split("_")[4])
+        self.n_sources = 2
 
         # preprocess -- store all absolute spectra values for faster
         # loading during run time

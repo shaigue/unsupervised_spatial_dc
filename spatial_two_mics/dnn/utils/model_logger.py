@@ -73,7 +73,9 @@ def save(model,
             except:
                 print("Error in removing {} ...".format(path))
 
-    ts = datetime.datetime.now().strftime("%Y-%m-%d-%H:%M:%s")
+    # BUG: does not work on windows for 'S' should be instead of 's'
+    # ts = datetime.datetime.now().strftime("%Y-%m-%d-%H:%M:%s")
+    ts = datetime.datetime.now().strftime("%Y-%m-%d-%H:%M")
     filename = "SDR_{}_SIR_{}_SAR_{}_{}.pt".format(sdr_str,
                                                    sir_str,
                                                    sar_str,

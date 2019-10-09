@@ -1,0 +1,51 @@
+*must
+  --train TRAIN         Path for the training dataset
+  --test TEST           Path for the testing dataset
+  --val VAL             Path for the validation dataset
+*optional
+  --n_train N_TRAIN     Reduce the number of training samples to this number.
+  --n_test N_TEST       Reduce the number of testing samples to this number.
+  --n_val N_VAL         Reduce the number of evaluation samples to this
+                        number.
+  -nl N_LAYERS, --n_layers N_LAYERS
+                        The number of layers of the BLSTM encoder
+  -ed EMBEDDING_DEPTH, --embedding_depth EMBEDDING_DEPTH
+                        The depth of the embedding
+  -hs HIDDEN_SIZE, --hidden_size HIDDEN_SIZE
+                        The size of the LSTM cells
+  -bs BATCH_SIZE, --batch_size BATCH_SIZE
+                        The number of samples in each batch. Warning: Cannot
+                        be less than the number of the validation samples
+*must
+  -name EXPERIMENT_NAME, --experiment_name EXPERIMENT_NAME
+                        The name or identifier of this experiment
+  -train_l {duet,raw_phase_diff,ground_truth}, --training_labels {duet,raw_phase_diff,ground_truth}
+                        The type of masks that you want to use for training as
+                        the ideal affinities
+  -cad CUDA_AVAILABLE_DEVICES [CUDA_AVAILABLE_DEVICES ...], --cuda_available_devices CUDA_AVAILABLE_DEVICES [CUDA_AVAILABLE_DEVICES ...]
+                        A list of Cuda IDs that would be available for running
+                        this experiment
+  --num_workers NUM_WORKERS
+                        The number of cpu workers for loading the data, etc.
+  --epochs EPOCHS       The number of epochs that the experiment should run
+  --eval_per EVAL_PER   The number of training epochs in order to run an
+                        evaluation
+  -lr LEARNING_RATE, --learning_rate LEARNING_RATE
+                        Initial Learning rate
+  -dr DROPOUT, --dropout DROPOUT
+                        Dropout Ratio
+  --bidirectional       Bidirectional or not
+  --early_stop_patience EARLY_STOP_PATIENCE
+                        The number of training epochs that the model will
+                        endure until the eval metric ( e.g SDR) will not
+                        become better
+  --lr_patience LR_PATIENCE
+                        The number of training epochs that the model will
+                        endure until the learning rate would be reduced
+  --lr_gamma_decay LR_GAMMA_DECAY
+                        Multiplicative value of decay that would be enforced
+                        in the value of the learning rate
+  --save_best SAVE_BEST
+                        The number of best models dependent on the metric you
+                        want to use that are going to be saved under the
+                        preferred logging model directory.
