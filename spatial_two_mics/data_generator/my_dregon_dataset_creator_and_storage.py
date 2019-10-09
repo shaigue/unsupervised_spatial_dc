@@ -287,26 +287,32 @@ def print_progress(message: str, n_stars: int = 0) -> None:
 
 #_______________________________________________________________________________________
 
-
-#_____________________________ABSTRACT CLASS DEFENITION_________________________________
-# I don't see the need with class inheratance, or classes here
-#_______________________________________________________________________________________
-
-
 #_____________________________DATA CREATION_____________________________________________
-def create_dataset(
-    n_train,
-    n_test,
-    n_val, 
-    types_to_mix,   # a list of n [n >= 2] types of sounds, string to have in the mixtures
-                    # the number of sources to mix will be infered from the length of this list
+def create_dataset(n_train: int, n_test: int, n_val:int, 
+    types_to_mix: list,   # a list of n [n >= 2] types of sounds, string to have in the mixtures
+                        # the number of sources to mix will be infered from the length of this list
     output_dir):
     """Creates the dataset.
 
     This function creates mixtures of 2 simulated microphones and spatial fetures
     it cretes the time-frequancy representatins of the mixed samples, 
-    and saves them into the output directory
-    creates train, test, and validation sets
+    and saves them into the output directory. 
+    Creates train, test, and validation sets.
+
+    Args:
+        n_train: Number of train mixtures
+        n_test: Number of test mixtures
+        n_val: Number of validation mixtures
+        types_to_mix: A list of n [n >= 2] types of sounds, to have in the mixtures.
+            The number of sources to mix will be infered from the length of this list.
+        output_dir: The output directory of all the datasets to train on.
+            The created dataset will be saved in a sub-directory in there, 
+            with a name corresponding to the parametrs given.
+
+    Returns: The path to the root of the created dataset
+    """
+
+    """
     the file structure of the folders after it should look like:
 
     output_dir
@@ -361,7 +367,7 @@ def create_dataset(
             save_mixture_data(mixture_data, mixture_save_path)
 
     # data generation is complete
-    return 0
+    return output_dir
 
 #_______________________________________________________________________________________
 
