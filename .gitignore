@@ -271,3 +271,7 @@ fabric.properties
 
 # every computer should have its own
 spatial_two_mics/config.py
+
+# wav files
+MY_DREGON/
+MY_DREGON/*
