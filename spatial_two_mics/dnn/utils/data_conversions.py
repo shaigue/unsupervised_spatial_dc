@@ -19,10 +19,18 @@ def one_hot_3Dmasks(index_ys, n_classes):
     """
     clustered_ys = index_ys.unsqueeze(-1).long()
 
-    one_hot = torch.cuda.FloatTensor(clustered_ys.size(0),
-                                     clustered_ys.size(1),
-                                     clustered_ys.size(2),
-                                     n_classes).zero_()
-
-    return one_hot.scatter_(3, clustered_ys, 1).cuda()
+    if torch.cuda.is_available():
+        one_hot = torch.cuda.FloatTensor(clustered_ys.size(0),
+                                        clustered_ys.size(1),
+                                        clustered_ys.size(2),
+                                        n_classes).zero_()
+        
+        return one_hot.scatter_(3, clustered_ys, 1).cuda()
+    
+    one_hot = torch.FloatTensor(clustered_ys.size(0),
+                                        clustered_ys.size(1),
+                                        clustered_ys.size(2),
+                                        n_classes).zero_()
+        
+    return one_hot.scatter_(3, clustered_ys, 1)
 

@@ -12,13 +12,14 @@ import librosa
 import glob2
 import numpy as np
 import random
+import soundfile as sf
 
 root_dir = os.path.join(
            os.path.dirname(os.path.realpath(__file__)),
            '../../')
 sys.path.insert(0, root_dir)
 
-from spatial_two_mics.config import DREGON_PATH, MY_DREGON_PATH
+from spatial_two_mics.config import DREGON_PATH, MY_DREGON_PATH, MY_DREGON_PATH2
 
 import shutil
 
@@ -67,13 +68,21 @@ def check_dregon_dataset_structure(dregon_path, dirs_to_process):
 
     return True
 
-def process_wav_file(wav, orig_d_path, target_d_path, sample_duration, sample_rate):
+
+def concatenate_channels(multichannel_data, n_channels):
+    concatenated_data = np.concatenate(multichannel_data[:, :n_channels])
+    return concatenated_data
+
+
+def process_wav_file(wav, orig_d_path, target_d_path, sample_duration, sample_rate, channels_to_extract):
     # read the orig wav file, and resample with given sample_rate
     wav_p = os.path.join(orig_d_path, wav)
-    data, sr = librosa.core.load(wav_p, sr=sample_rate, dtype=np.float32)
-    # reduce it to a single channel
-    if len(data.shape) > 1:
-        data = data[:, 0]
+    data, sr = sf.read(wav_p, dtype=np.float32)
+    if data.shape[1] < channels_to_extract:
+        raise ValueError('Not enough channels')
+    # reduce it to a single channel and resample
+    data = np.concatenate(data[:, :channels_to_extract])
+    data = librosa.resample(data, sr, sample_rate)
     # split it into the required duration
     frames_per_sample = int(sample_duration * sample_rate)
     # write the audio to the given directory
@@ -95,7 +104,7 @@ def get_all_wav_files(dir_path):
     return list(filter(lambda x: x.split('.')[-1] == 'wav', wav_files))
 
 
-def process_sub_dir(sub_dir, dregon_path, target_path, sample_duration, sample_rate):
+def process_sub_dir(sub_dir, dregon_path, target_path, sample_duration, sample_rate, channels_to_extract):
     target_dir_path = os.path.join(target_path, sub_dir)
     orig_dir_path = os.path.join(dregon_path, sub_dir)
     print(f'***processing {orig_dir_path}***')
@@ -117,7 +126,7 @@ def process_sub_dir(sub_dir, dregon_path, target_path, sample_duration, sample_r
         ## print(f'***->list of files: {wav_files}')
         # process each wav file seperatly
         for wav in wav_files:
-            process_wav_file(wav, orig_d_path, target_d_path, sample_duration, sample_rate)
+            process_wav_file(wav, orig_d_path, target_d_path, sample_duration, sample_rate, channels_to_extract)
             
 def split_train_test(target_path, test_ratio):
     """
@@ -181,6 +190,7 @@ def main(args):
     dirs_to_process = args['dirs_to_process']
     sample_rate = args['sample_rate']
     sample_duration = args['sample_duration']
+    channels_to_extract = args['channels_to_extract']
 
     # check if the path has the right structure
     # if not let the user know
@@ -196,7 +206,8 @@ def main(args):
     
     # sub-dir processing processing
     for sub_dir in dirs_to_process:
-        process_sub_dir(sub_dir, dregon_path, target_path, sample_duration, sample_rate)
+        process_sub_dir(sub_dir, dregon_path, target_path, sample_duration, sample_rate,
+            channels_to_extract)
 
     # now split it into test train
     split_train_test(target_path, test_ratio)
@@ -211,9 +222,10 @@ if __name__ == '__main__':
         # a list of the sub directories to process
         'dirs_to_process': ['clean_sound', 'rotor_sound'],
         'dregon_path': DREGON_PATH,
-        'target_path': MY_DREGON_PATH,
-        'sample_duration': 1.5, # the duration of one sample, in seconds
+        'target_path': MY_DREGON_PATH2,
+        'sample_duration': 2, # the duration of one sample, in seconds
         'sample_rate': 16000, # 16kHz
+        'channels_to_extract': 3 # take every channel as a source
     }
     main(args)
     # shutil.rmtree(os.path.join(MY_DREGON_PATH, 'test'))

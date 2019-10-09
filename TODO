@@ -32,7 +32,8 @@ For Improvement:
 2. use more sufisticated clustering (spectralNet) for clustering rather then K-means
 3. use a more efficeint method to mix the signals
 4. Add your own 'label inferance' based on the wanted algorithem / signal properties
-5.
+5. can change the why that the positioner is working/ random positioner
+6. 
 
 
 ------------------------------------------------------------------------------------------------------

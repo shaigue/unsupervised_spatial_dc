@@ -5,7 +5,6 @@ intended for use in my processed DREGON dataset - 'my_dregon'
 
 
 """
-TODO:
 1. make pre-preprocessing:
     1. make a sample of train / test - for now we will only take the rotor sounds and the clean recordings
     2. process to make it mono-channel, float, and with sample rate of 16kHz
@@ -78,8 +77,8 @@ def transform_data_dic(data_dic):
     for p_type, p_type_dict in data_dic.items():
         for s_type, s_type_dict in p_type_dict.items():
             samples = s_type_dict['samples']
-            for val in samples.values():
-                val.update({'type': s_type})
+            # for val in samples.values():
+            #     val.update({'type': s_type})
             new_dict[s_type] = samples
     
     return new_dict
