@@ -13,7 +13,7 @@ C:/Users/shaig/Miniconda3/envs/dl-project/python.exe ^
  --hidden_size 1024 ^
  --training_labels ground_truth ^
  --eval_per 1 ^
- --learning_rate 0.003 ^
+ --learning_rate 0.001 ^
  --dropout 0.0 ^
  --early_stop_patience 7 ^
  --lr_patience 3 ^
