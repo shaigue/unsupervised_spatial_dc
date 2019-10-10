@@ -1,11 +1,22 @@
 C:/Users/shaig/Miniconda3/envs/dl-project/python.exe ^
  "c:/Users/shaig/Documents/CS_Technion/2019_b/Deep Learning Project/repos/unsupervised_spatial_dc/spatial_two_mics/dnn/experiments/my_experiment.py" ^
- --train "C:\\Users\\shaig\\Documents\\CS_Technion\\2019_b\\Deep Learning Project\\repos\\unsupervised_spatial_dc\\output\\rotor_speech-256-128-128" ^
- --test "C:\\Users\\shaig\\Documents\\CS_Technion\\2019_b\\Deep Learning Project\\repos\\unsupervised_spatial_dc\\output\\rotor_speech-256-128-128" ^
- --val "C:\\Users\\shaig\\Documents\\CS_Technion\\2019_b\\Deep Learning Project\\repos\\unsupervised_spatial_dc\\output\\rotor_speech-256-128-128" ^
- --n_train 256 ^
- --n_test 128 ^
- --n_val 16 ^
+ --train "C:\\Users\\shaig\\Documents\\CS_Technion\\2019_b\\Deep Learning Project\\repos\\unsupervised_spatial_dc\\output\\rotor_speech-256-128-128-overfitting" ^
+ --test "C:\\Users\\shaig\\Documents\\CS_Technion\\2019_b\\Deep Learning Project\\repos\\unsupervised_spatial_dc\\output\\rotor_speech-256-128-128-overfitting" ^
+ --val "C:\\Users\\shaig\\Documents\\CS_Technion\\2019_b\\Deep Learning Project\\repos\\unsupervised_spatial_dc\\output\\rotor_speech-256-128-128-overfitting" ^
+ --n_train 64 ^
+ --n_test 64 ^
+ --n_val 64 ^
  --batch_size 32 ^
- --epochs 5 ^
- -name "my_experiment" 
+ --epochs 1 ^
+ --n_layers 1 ^
+ --embedding_depth 16 ^
+ --hidden_size 1024 ^
+ --training_labels ground_truth ^
+ --eval_per 1 ^
+ --learning_rate 0.003 ^
+ --dropout 0.0 ^
+ --early_stop_patience 7 ^
+ --lr_patience 3 ^
+ --lr_gamma_decay 0.2 ^
+ --save_best 1 ^
+ --experiment_name "overfitting_experiment"

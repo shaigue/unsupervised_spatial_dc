@@ -12,6 +12,8 @@ import datetime
 import glob2
 import torch.nn as nn
 
+from pprint import pprint
+
 root_dir = os.path.join(
     os.path.dirname(os.path.realpath(__file__)),
     '../../../')
@@ -42,9 +44,9 @@ def save(model,
         'std_tr': std_tr,
         'training_labels': training_labels
     }
-    sdr_str = str(round(performance_dic['sdr'], 3))
-    sar_str = str(round(performance_dic['sar'], 3))
-    sir_str = str(round(performance_dic['sir'], 3))
+    sdr_str = str(int(performance_dic['sdr']))
+    sar_str = str(int(performance_dic['sar']))
+    sir_str = str(int(performance_dic['sir']))
 
     if training_labels == 'raw_phase_diff':
         folder_name = os.path.join(MODELS_RAW_PHASE_DIR, dataset_id)
@@ -75,13 +77,18 @@ def save(model,
 
     # BUG: does not work on windows for 'S' should be instead of 's'
     # ts = datetime.datetime.now().strftime("%Y-%m-%d-%H:%M:%s")
-    ts = datetime.datetime.now().strftime("%Y-%m-%d-%H:%M")
+    ts = datetime.datetime.now().strftime("%d-%H-%M")
     filename = "SDR_{}_SIR_{}_SAR_{}_{}.pt".format(sdr_str,
                                                    sir_str,
                                                    sar_str,
                                                    ts)
+    # filename = 'model123.pt'
     file_path = os.path.join(folder_name, filename)
+    ## debug
+    # pprint(state)
+    ## debug
     torch.save(state, file_path)
+    # torch.save(state, "C:\\Users\\shaig\\Documents\\CS_Technion\\2019_b\\Deep Learning Project\\repos\\unsupervised_spatial_dc\\output\\model.pt")
 
 
 # def load(model,
@@ -124,7 +131,10 @@ def load_and_create_the_model(model_path):
                                       embedding_depth=args.embedding_depth,
                                       bidirectional=args.bidirectional,
                                       dropout=args.dropout)
-    model = nn.DataParallel(model).cuda()
+    if torch.cuda.is_available():
+        model = nn.DataParallel(model).cuda()
+    else:
+        model = nn.DataParallel(model)
 
     optimizer = torch.optim.Adam(model.parameters(),
                                  lr=args.learning_rate,

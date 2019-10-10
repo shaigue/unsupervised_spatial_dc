@@ -1,17 +1,17 @@
-# unsupervised_spatial_dc
-Code for the paper: "Unsupervised Deep Clustering for Source Separation: Direct Learning from Mixtures using Spatial Information"
+# This is the README.md for the CS236605 course final project
 
-## Disclaimer
-University of Illinois Open Source License
+This should have the parts:
 
-Copyright © 2018, University of Illinois at Urbana Champaign. All rights reserved.
+1. explain the code structure inside of src/
+  - explain each module, and each section
 
-Developed by: Efthymios Tzinis 1, Shrikant Venkataramani 1, Paris Smaragdis 1,2
+2. explain on how to reproduce the experiment, step by step
+  - where to put the data
+  - what configurations to change
+  - how to do the preprocessing
+  - how to run the experiment 
 
-1: University of Illinois at Urbana-Champaign, 
-2: Adobe Research 
+<probably just copy the README.md of the git repository of the project here>
 
-This work was supported by NSF grant 1453104. 
-Paper link: https://arxiv.org/abs/1811.01531
-
-Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the “Software”), to deal with the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions: Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimers. Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimers in the documentation and/or other materials provided with the distribution. Neither the names of Computational Audio Group, University of Illinois at Urbana-Champaign, nor the names of its contributors may be used to endorse or promote products derived from this Software without specific prior written permission. THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE CONTRIBUTORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS WITH THE SOFTWARE.
+# in the same main submition directory we should have src/ folder with all of the code
+## and the .pdf + .word containing the work report

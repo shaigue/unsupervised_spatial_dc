@@ -226,7 +226,7 @@ class MixtureDataCreator(object):
         self.n_sources = n_sources
         self.positions_generator = positions_generator.RandomCirclePositioner()
         self.mixture_generator = mix_constructor.AudioMixtureConstructor(n_fft=512,
-            win_len=512, hop_len=128, mixture_duration=1, force_delays=None)
+            win_len=512, hop_len=128, mixture_duration=1.5, force_delays=None)
         self.gt_estimator = mask_estimator.TFMaskEstimator(
                              inference_method='Ground_truth')
         self.sl_estimator = mask_estimator.TFMaskEstimator(

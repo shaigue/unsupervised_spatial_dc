@@ -212,8 +212,8 @@ def run_LSTM_experiment(args):
                                      history,
                                      update_mode='epoch')
 
-
-        if epoch % args.eval_per == 0:
+        # added the second term so it will save the model on the last epoch
+        if (epoch % args.eval_per == 0) or (epoch == (args.epoch - 1)):
             eval(model, val_generator, mean_tr, std_tr, epoch,
                  history, n_val_batches, k_means_obj, n_val_sources,
                  args.batch_size)
