@@ -26,12 +26,12 @@ root_dir = os.path.join(
            '../../')
 sys.path.insert(0, root_dir)
 
-from spatial_two_mics.config import MY_DREGON_PATH
+from spatial_two_mics.config import MY_DREGON_PATH2
 
 
 def check_my_dregon():
     # Checks if the dataset is in the local machine
-    return os.path.isdir(MY_DREGON_PATH)
+    return os.path.isdir(MY_DREGON_PATH2)
 
 
 def get_wav_name(wav_p):
@@ -86,7 +86,7 @@ def transform_data_dic(data_dic):
 class MyDregonLoader(object):
     def __init__(self,
                  normalize_audio_by_std=True):
-        self.dataset_path = MY_DREGON_PATH
+        self.dataset_path = MY_DREGON_PATH2
         self.normalize_audio_by_std = normalize_audio_by_std
 
     def get_all_wavs(self, path):
@@ -230,7 +230,7 @@ def print_data_dict2(data_dict):
 
 
 if __name__ == "__main__":
-    print("Loading MY_DREGON Dataset from {}...".format(MY_DREGON_PATH))
+    print("Loading MY_DREGON Dataset from {}...".format(MY_DREGON_PATH2))
     my_dregon_loader = MyDregonLoader()
     my_dregon_data = my_dregon_loader.load()
     ## for testing
