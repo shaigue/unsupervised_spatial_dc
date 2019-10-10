@@ -29,7 +29,7 @@ sys.path.insert(0, root_dir)
 import spatial_two_mics.dnn.models.simple_LSTM_encoder as LSTM_enc
 import spatial_two_mics.dnn.losses.affinity_approximation as \
     affinity_losses
-import spatial_two_mics.dnn.utils.my_fast_dataset as fast_data_gen
+import spatial_two_mics.dnn.utils.fast_dataset_v3 as fast_data_gen
 import spatial_two_mics.dnn.utils.data_conversions as converters
 import spatial_two_mics.dnn.utils.experiment_command_line_parser_v2 as \
     parser
@@ -213,7 +213,7 @@ def run_LSTM_experiment(args):
                                      update_mode='epoch')
 
         # added the second term so it will save the model on the last epoch
-        if (epoch % args.eval_per == 0) or (epoch == (args.epoch - 1)):
+        if (epoch % args.eval_per == 0) or (epoch == (args.epochs - 1)):
             eval(model, val_generator, mean_tr, std_tr, epoch,
                  history, n_val_batches, k_means_obj, n_val_sources,
                  args.batch_size)
