@@ -82,13 +82,9 @@ def save(model,
                                                    sir_str,
                                                    sar_str,
                                                    ts)
-    # filename = 'model123.pt'
+                                                   
     file_path = os.path.join(folder_name, filename)
-    ## debug
-    # pprint(state)
-    ## debug
     torch.save(state, file_path)
-    # torch.save(state, "C:\\Users\\shaig\\Documents\\CS_Technion\\2019_b\\Deep Learning Project\\repos\\unsupervised_spatial_dc\\output\\model.pt")
 
 
 # def load(model,
