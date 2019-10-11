@@ -274,3 +274,7 @@ spatial_two_mics/config.py
 output/*
 output/
 *__pycache__*
+*.idea*
+*.vscode*
+*demo_cache/*
+demo_cache
