@@ -16,7 +16,7 @@ root_dir = os.path.join(
     os.path.dirname(os.path.realpath(__file__)),
     '../../../')
 sys.path.insert(0, root_dir)
-import spatial_two_mics.dnn.utils.fast_dataset_v3 as data_loader
+import spatial_two_mics.dnn.utils.my_fast_dataset as data_loader
 import spatial_two_mics.dnn.evaluation.naive_evaluation_numpy as np_eval
 from spatial_two_mics.config import FINAL_RESULTS_DIR
 
@@ -26,7 +26,7 @@ def eval(data_generator,
 
     data_dir = os.path.dirname(dataset_path)
     info = os.path.basename(data_dir)
-    n_sources = int(info.split('_')[4])
+    n_sources = 2
 
     eval_dic = {'sdr': [], 'sir': [], 'sar': []}
 
