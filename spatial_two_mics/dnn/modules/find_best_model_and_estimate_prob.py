@@ -22,7 +22,7 @@ root_dir = os.path.join(
     '../../../')
 sys.path.insert(0, root_dir)
 import spatial_two_mics.dnn.utils.model_logger as model_logger
-import spatial_two_mics.dnn.utils.fast_dataset_v3 as data_loader
+import spatial_two_mics.dnn.utils.my_fast_dataset as data_loader
 import spatial_two_mics.dnn.evaluation.naive_evaluation_numpy as np_eval
 from spatial_two_mics.config import *
 
@@ -48,7 +48,10 @@ def eval(dataset_gen,
                           max=n_batches)
         for batch_data in dataset_gen:
             abs_tfs, wavs_lists, real_tfs, imag_tfs = batch_data
-            input_tfs = abs_tfs.cuda()
+            if torch.cuda.is_available():
+                input_tfs = abs_tfs.cuda()
+            else:
+                input_tfs = abs_tfs
             # the input sequence is determined by time and not freqs
             # before: input_tfs = batch_size x (n_fft/2+1) x n_timesteps
             input_tfs = input_tfs.permute(0, 2, 1).contiguous()
@@ -112,12 +115,14 @@ def find_best_model_and_evaluate(args):
 
         df = pd.read_csv(result_path)
 
-        mask_types2model_dir = {
-            'duet': os.path.join(MODELS_DIR, model_dataset),
-            'ground_truth': os.path.join(MODELS_GROUND_TRUTH,
-                                         model_dataset),
-            'raw_phase_diff': os.path.join(MODELS_RAW_PHASE_DIR,
-                                           model_dataset)}
+        # mask_types2model_dir = {
+        #     'duet': os.path.join(MODELS_DIR, model_dataset),
+        #     'ground_truth': os.path.join(MODELS_GROUND_TRUTH,
+        #                                  model_dataset),
+        #     'raw_phase_diff': os.path.join(MODELS_RAW_PHASE_DIR,
+        #                                    model_dataset)}
+
+        mask_types2model_dir = {'ground_truth': os.path.join(MODELS_GROUND_TRUTH, model_dataset)}
 
         for mask_type, saved_models_dir in mask_types2model_dir.items():
             mask_df = df.loc[df['training_labels'] == mask_type]
@@ -136,8 +141,8 @@ def find_best_model_and_evaluate(args):
 
             test_dataset_dir = os.path.join(DATASETS_DIR,
                                             dataset_dirname)
-
-            if not os.path.exists(test_dataset_dir):
+            # test_dataset_dir = os.path.join(test_dataset_dir, "test")
+            if not os.path.exists('C:\\Users\\orsht\\Documents\\236605\\Project\\Shai\\outputs\\datasets_dir/whitenoise_speech-832-128-128'):
                 print(test_dataset_dir)
                 raise IOError("Dataset path not found!")
 

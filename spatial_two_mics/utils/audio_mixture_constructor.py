@@ -11,6 +11,7 @@ from librosa.core import stft
 from pprint import pprint
 import numpy as np
 import scipy.io.wavfile as wavfile
+import soundfile as sf
 
 
 class AudioMixtureConstructor(object):
@@ -62,7 +63,7 @@ class AudioMixtureConstructor(object):
 
     @staticmethod
     def load_wav(source_info):
-        return wavfile.read(source_info['wav_path'])
+        return sf.read(source_info['wav_path'])
 
     def get_stft(self,
                  signal):
@@ -267,11 +268,11 @@ class AudioMixtureConstructor(object):
         """
 
         for i, source_info in enumerate(mixture_info['sources_ids']):
-            fs, wav = self.load_wav(source_info)
+            wav, fs = self.load_wav(source_info)
             if self.normalize_audio_by_std:
                 wav = wav / np.std(wav)
-            mixture_info['sources_ids'][i]['fs'] = int(fs)
-            mixture_info['sources_ids'][i]['wav'] = wav
+            mixture_info['sources_ids'][i].update({'fs': int(fs)})
+            mixture_info['sources_ids'][i].update({'wav': wav})
 
         tf_representations = self.get_tf_representations(mixture_info)
 

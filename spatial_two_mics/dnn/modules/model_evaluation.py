@@ -22,7 +22,7 @@ root_dir = os.path.join(
     os.path.dirname(os.path.realpath(__file__)),
     '../../../')
 sys.path.insert(0, root_dir)
-import spatial_two_mics.dnn.utils.fast_dataset_v3 as data_loader
+import spatial_two_mics.dnn.utils.my_fast_dataset as data_loader
 import spatial_two_mics.dnn.evaluation.naive_evaluation_numpy as np_eval
 import spatial_two_mics.dnn.utils.model_logger as model_logger
 from spatial_two_mics.config import RESULTS_DIR
@@ -52,7 +52,10 @@ def eval(dataset_gen,
                           max=n_batches)
         for batch_data in dataset_gen:
             abs_tfs, wavs_lists, real_tfs, imag_tfs = batch_data
-            input_tfs = abs_tfs.cuda()
+            if torch.cuda.is_available():
+                input_tfs = abs_tfs.cuda()
+            else:
+                input_tfs = abs_tfs
             # the input sequence is determined by time and not freqs
             # before: input_tfs = batch_size x (n_fft/2+1) x n_timesteps
             input_tfs = input_tfs.permute(0, 2, 1).contiguous()

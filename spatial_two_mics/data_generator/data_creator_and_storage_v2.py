@@ -268,11 +268,15 @@ class RandomCombinations(ArtificialDatasetCreator):
         possible_sources = []
         for speaker in speakers:
             sentences = list(speakers_dic[speaker]['sentences'].keys())
+            sentences_names = []
+            for i in range(len(sentences)):
+                sentences_names.append(sentences[i].split('\\')[-1])
             gender = speakers_dic[speaker]['gender']
             possible_sources += [{'speaker_id': speaker,
                                   'gender': gender,
-                                  'sentence_id': sentence}
-                                 for sentence in sentences]
+                                  'sentence_id': sentences[i],
+                                  'sentence_name': sentences_names[i]}
+                                 for i in range(len(sentences))]
 
         shuffle(possible_sources)
 
@@ -299,7 +303,7 @@ class RandomCombinations(ArtificialDatasetCreator):
                                     ground_truth_estimator=None,
                                     soft_label_estimator=None,
                                     output_dir=None):
-        name = [s_id['speaker_id'] + '-' + s_id['sentence_id']
+        name = [s_id['speaker_id'] + '-' + s_id['sentence_name']
                 for s_id in mixture_info['sources_ids']]
         name = '_'.join(name)
         data = {}
