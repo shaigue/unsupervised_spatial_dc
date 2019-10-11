@@ -29,7 +29,7 @@ sys.path.insert(0, root_dir)
 import spatial_two_mics.dnn.models.simple_LSTM_encoder as LSTM_enc
 import spatial_two_mics.dnn.losses.affinity_approximation as \
     affinity_losses
-import spatial_two_mics.dnn.utils.fast_dataset_v3 as fast_data_gen
+import spatial_two_mics.dnn.utils.my_fast_dataset as fast_data_gen
 import spatial_two_mics.dnn.utils.data_conversions as converters
 import spatial_two_mics.dnn.utils.experiment_command_line_parser_v2 as \
     parser
