@@ -1,15 +1,15 @@
-C:/Users/shaig/Miniconda3/envs/dl-project/python.exe ^
- "c:/Users/shaig/Documents/CS_Technion/2019_b/Deep Learning Project/repos/unsupervised_spatial_dc/spatial_two_mics/dnn/experiments/my_experiment.py" ^
- --train "C:\\Users\\shaig\\Documents\\CS_Technion\\2019_b\\Deep Learning Project\\repos\\unsupervised_spatial_dc\\output\\rotor_whitenoise-832-128-128" ^
- --test "C:\\Users\\shaig\\Documents\\CS_Technion\\2019_b\\Deep Learning Project\\repos\\unsupervised_spatial_dc\\output\\rotor_whitenoise-832-128-128" ^
- --val "C:\\Users\\shaig\\Documents\\CS_Technion\\2019_b\\Deep Learning Project\\repos\\unsupervised_spatial_dc\\output\\rotor_whitenoise-832-128-128" ^
+C:/Users/orsht/Miniconda3/envs/dl-project/python.exe ^
+ "C:/Users/orsht/Documents/236605/Project/Shai/unsupervised_spatial_dc/spatial_two_mics/dnn/experiments/my_experiment.py" ^
+ --train "C:\\Users\\orsht\\Documents\\236605\\Project\\Shai\\outputs\\datasets_dir\\whitenoise_speech-832-128-128" ^
+ --test "C:\\Users\\orsht\\Documents\\236605\\Project\\Shai\\outputs\\datasets_dir\\whitenoise_speech-832-128-128" ^
+ --val "C:\\Users\\orsht\\Documents\\236605\\Project\\Shai\\outputs\\datasets_dir\\whitenoise_speech-832-128-128" ^
  --batch_size 32 ^
  --epochs 100 ^
  --n_layers 2 ^
  --embedding_depth 40 ^
  --hidden_size 1024 ^
  --bidirectional ^
- --training_labels ground_truth ^
+ --training_labels "duet" ^
  --eval_per 10 ^
  --learning_rate 0.0025 ^
  --dropout 0.2 ^
